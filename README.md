@@ -2,10 +2,11 @@
 
 1. **Ad hoc sessions**, which the user can create, open (and modify or delete) as needed via the commands below. These sessions are stored in files prefixed by "adhoc-", though that prefix is abstracted away from the user.
 
-2. **Permament sessions**, which are vimscript files located in the `sessions` directory. They can only be *opened* via the `:SessionOpen` command. As an example, the file `~/.vim/sessions/v.vim` might contain:
+2. **Permanent sessions**, which are vimscript files located in the `sessions` directory. They can only be *opened* via the `:SessionOpen` command. As an example, the file `~/.vim/sessions/v.vim` might contain:
 
-    > edit ~/.vim
-    > lcd ~/.vim
+    > `edit ~/.vim`
+    >
+    > `lcd ~/.vim`
 
     This will open the vim directory in netrw and cd to that directory. This is handy for jumping around to frequently used directories within vim.
 
@@ -30,15 +31,19 @@ Note that you can use command-line completion on ad-hoc session names, and that 
 ## Suggested Mappings
 
 I suggest the following mappings for easy access. (Note that each one has a single trailing space.)
-- nnoremap <LocalLeader>so :SessionOpen 
-- nnoremap <LocalLeader>ss :SessionSave 
-- nnoremap <LocalLeader>sd :SessionDelete 
-- nnoremap <LocalLeader>sO :SessionOpenDelete 
+
+- `nnoremap <LocalLeader>so :SessionOpen `
+
+- `nnoremap <LocalLeader>ss :SessionSave `
+
+- `nnoremap <LocalLeader>sd :SessionDelete `
+
+- `nnoremap <LocalLeader>sO :SessionOpenDelete `
 
 ## Variables
 
 There is one variable that determines the location of mappings, which by default is set as follows:
 
-- let g:sessionHelperDirectory = expand("$HOME") . "/.vim/sessions/"
+- `let g:sessionHelperDirectory = expand("$HOME") . "/.vim/sessions/"`
 
 If the specified directory does not currently exist, it will be created.
