@@ -10,7 +10,6 @@ prefixed by "adhoc-", though that prefix is abstracted away from the user.
 example, the file `~/.vim/sessions/v.vim` might contain:
 
         edit ~/.vim
-
         lcd ~/.vim
 
     This will open the vim directory in netrw and cd to that directory. This is
@@ -22,8 +21,7 @@ files cannot be manually saved via `:SessionSave`, but they can be opened and
 deleted via the commands below. For example, the following will automatically
 write (or overwrite) the `default` autosave session just before exiting vim:
 
-        autocmd VimLeave * call execute 'mksession!' g:sessionHelperDirectory .
-        'autosave-default.vim'
+        autocmd VimLeave * call execute 'mksession!' g:sessionHelperDirectory . 'autosave-default.vim'
 
     Using `:SessionOpen`, the autosave session can be opened manually, or the
     following will automatically load the default autosave:
@@ -57,19 +55,16 @@ issuing the command with no argument will present a list of all sessions
 I suggest the following mappings for easy access. (Note that each one has a
 single trailing space.)
 
-- `nnoremap <LocalLeader>so :SessionOpen `
-
-- `nnoremap <LocalLeader>ss :SessionSave `
-
-- `nnoremap <LocalLeader>sd :SessionDelete `
-
-- `nnoremap <LocalLeader>sO :SessionOpenDelete `
+    nnoremap <LocalLeader>so :SessionOpen 
+    nnoremap <LocalLeader>ss :SessionSave 
+    nnoremap <LocalLeader>sd :SessionDelete 
+    nnoremap <LocalLeader>sO :SessionOpenDelete 
 
 ## Variables
 
 There is one variable that determines the location of mappings, which by
 default is set as follows:
 
-- `let g:sessionHelperDirectory = expand("$HOME") . "/.vim/sessions/"`
+    let g:sessionHelperDirectory = expand("$HOME") . "/.vim/sessions/"
 
 If the specified directory does not currently exist, it will be created.
