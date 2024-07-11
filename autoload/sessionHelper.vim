@@ -65,6 +65,9 @@ function! s:sessionChoose(command) abort  " {{{
         let chosenFile = orderedList[choice - 1]
     else
         redraw
+        echohl Comment
+        echo "Aborting..."
+        echohl None
         return "ABORT"
     endif
     return g:sessionHelperDirectory . chosenFile . '.vim'
@@ -100,12 +103,13 @@ function! sessionHelper#SessionOpen(session) abort  " {{{
     " Open session file
     let sessionFile = <SID>getSessionFile(a:session, "open")
     if sessionFile !=# "ABORT"
-        echo "Opening session " . <SID>extractSessionFromFile(sessionFile, '\(adhoc-\)\?') . "."
-        execute "silent source" sessionFile
         " Save last session file only if adhoc session
         if sessionFile =~# '/sessions/adhoc-'
             let g:sessionHelperLastSession = sessionFile
+            silent %bdelete  " Delete all buffers so that sessionFile can be loaded fresh
         endif
+        echo "Opening session " . <SID>extractSessionFromFile(sessionFile, '\(adhoc-\)\?') . "."
+        execute "silent source" sessionFile
     endif
 endfunction " }}}
 
