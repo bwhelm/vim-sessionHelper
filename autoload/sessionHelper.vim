@@ -108,7 +108,7 @@ function! sessionHelper#SessionOpen(session) abort  " {{{
             let g:sessionHelperLastSession = sessionFile
             silent %bdelete  " Delete all buffers so that sessionFile can be loaded fresh
         endif
-        echo "Opening session " . <SID>extractSessionFromFile(sessionFile, '\(adhoc-\)\?') . "."
+        echo "Opening session '" . <SID>extractSessionFromFile(sessionFile, '\(adhoc-\)\?') . "'."
         execute "silent source" sessionFile
     endif
 endfunction " }}}
@@ -122,7 +122,7 @@ function! sessionHelper#SessionDelete(session) abort  " {{{
             return
         endif
         call delete(sessionFile)
-        echo "Session " . <SID>extractSessionFromFile(sessionFile, '\(adhoc-\)\?') . " deleted."
+        echo "Session '" . <SID>extractSessionFromFile(sessionFile, '\(adhoc-\)\?') . "' deleted."
         if exists('g:sessionHelperLastSession') && sessionFile == g:sessionHelperLastSession
             unlet g:sessionHelperLastSession
         endif
@@ -153,23 +153,21 @@ function! sessionHelper#SessionSave(session) abort  " {{{
         endif
     endif
     let sessionFile = g:sessionHelperDirectory . 'adhoc-' . session . ".vim"
-    if a:session == ""
-        echo "Reusing session:" session . "."
-    elseif filereadable(sessionFile)
-        echohl WarningMsg
-        echo "Overwrite" session "(y/N)?"
-        echohl None
-        let answer = getcharstr()
-        if answer !~? "y"
-            redraw | echo "Aborting."
-            return
+    if a:session != ""
+        if filereadable(sessionFile)
+            echohl WarningMsg
+            echo "Overwrite" session "(y/N)?"
+            echohl None
+            let answer = getcharstr()
+            if answer !~? "y"
+                redraw | echo "Aborting."
+                return
+            endif
         endif
-    else
-        echo "Creating" session "session."
-    endif
-    execute "mksession!" sessionFile
-    redraw | echo "Session file" session "written."
-    if sessionFile =~# '/sessions/adhoc-'
-        let g:sessionHelperLastSession = sessionFile
+        execute "mksession!" sessionFile
+        redraw | echo "Session file '" . session . "' written."
+        if sessionFile =~# '/sessions/adhoc-'
+            let g:sessionHelperLastSession = sessionFile
+        endif
     endif
 endfunction " }}}
