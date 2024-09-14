@@ -134,8 +134,8 @@ function! sessionHelper#SessionOpenDelete(session) abort  " {{{
     let sessionFile = <SID>getSessionFile(a:session, "delete")
     if sessionFile !=# "ABORT"
         let sessionName = <SID>extractSessionFromFile(sessionFile)
-        call <SID>SessionOpen(sessionName)
-        call <SID>SessionDelete(sessionName)
+        call sessionHelper#SessionOpen(sessionName)
+        call sessionHelper#SessionDelete(sessionName)
     endif
 endfunction " }}}
 
